@@ -1,4 +1,5 @@
 #!/bin/bash
+
 pip install nose healpy
 git clone https://github.com/Libsharp/libsharp.git
 cd libsharp
