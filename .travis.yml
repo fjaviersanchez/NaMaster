@@ -11,8 +11,8 @@ cache:
 addons:
     apt:
         packages:
-            - gsl
-            - fftw
+            - libgsl0ldbl
+            - libfftw3-3
             - autotools-dev
             - autoconf
 matrix:
