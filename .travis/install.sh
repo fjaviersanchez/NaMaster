@@ -1,7 +1,9 @@
 #!/bin/bash
 
-pip install nose healpy
-git clone https://github.com/Libsharp/libsharp.git
+pip install nose healpy # Installing python dependencies
+
+#### Install libsharp ####
+git clone https://github.com/Libsharp/libsharp.git 
 cd libsharp
 autoconf
 ./configure
@@ -13,6 +15,11 @@ export PATH=$HOME/bin:$PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$TRAVIS_BUILD_DIR/lib
 export LDFLAGS="-L$TRAVIS_BUILD_DIR/lib"
 export CPPFLAGS="-I$TRAVIS_BUILD_DIR/include"
+
+#### Install GSL2.0+ ####
+wget http://mirror.rise.ph/gnu/gsl/gsl-2.4.tar.gz && tar xvzf gsl-2.4.tar.gz && cd gsl-2.4 &&  ./configure && make && sudo make install && cd ..
+
+#### Install NaMaster C ####
 cd $HOME
 git clone https://github.com/LSSTDESC/NaMaster.git
 cd NaMaster

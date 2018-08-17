@@ -8,6 +8,8 @@ cache:
     - "$TRAVIS_BUILD_DIR/build/SWIG/src"
     - "$HOME/libsharp"
     - "$HOME/miniconda"
+    pip: true
+
 addons:
     apt:
         packages:
