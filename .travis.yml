@@ -3,11 +3,9 @@ sudo: false
 cache:
     apt: true
     directories:
-    - "$TRAVIS_BUILD_DIR/build/GSL/src"
-    - "$TRAVIS_BUILD_DIR/build/FFTW/src"
-    - "$TRAVIS_BUILD_DIR/build/SWIG/src"
     - "$HOME/libsharp"
-    - "$HOME/miniconda"
+    - "$HOME/NaMaster"
+    - "$HOME/gsl-2.4"
     pip: true
 
 addons:
@@ -16,8 +14,7 @@ addons:
             - libfftw3-3
             - autotools-dev
             - autoconf
-            - libcfitsio-bin
-            - libcfitsio-dev
+            - libcfitsio3-dev
 
 matrix:
   include:
