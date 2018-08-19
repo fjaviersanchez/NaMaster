@@ -9,9 +9,10 @@ autoconf
 ./configure
 make
 make install
-mv lib/* $TRAVIS_BUILD_DIR/
-mv include/* $TRAVIS_BUILD_DIR/
-mv bin/* $TRAVIS_BUILD_DIR/
+mv lib $TRAVIS_BUILD_DIR/
+mv include $TRAVIS_BUILD_DIR/
+mv bin $TRAVIS_BUILD_DIR/
+ls $TRAVIS_BUILD_DIR
 export PATH=$TRAVIS_BUILD_DIR/bin:$PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$TRAVIS_BUILD_DIR/lib:/usr/local/lib
 export LDFLAGS="-L$TRAVIS_BUILD_DIR/lib -L/usr/local/lib"
