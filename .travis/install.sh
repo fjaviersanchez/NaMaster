@@ -1,6 +1,14 @@
 #!/bin/bash
 
-pip install nose healpy # Installing python dependencies
+# Install chealpix
+
+sudo add-apt-repository ppa:zonca/healpix 
+sudo apt-get update 
+sudo apt-get install healpix-cxx libhealpix-cxx-dev libchealpix0 libchealpix-dev
+
+# Install healpy and nose
+
+pip install nose healpy
 
 #### Install libsharp ####
 git clone https://github.com/Libsharp/libsharp.git 
