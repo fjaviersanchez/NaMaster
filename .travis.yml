@@ -29,14 +29,6 @@ matrix:
     sudo: required
     python: 3.6
     env: TOXENV=py36
-  #- os: osx
-  #  osx_image: xcode9.4
-  #  language: generic
-  #  env: TOXENV=py27
-  #- os: osx
-  #  osx_image: xcode9.4
-  #  language: generic
-  #  env: TOXENV=py36
 
 before_install:
 - "chmod 777 ./.travis/install.sh"
