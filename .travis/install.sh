@@ -2,10 +2,7 @@
 
 # Install chealpix
 
-sudo add-apt-repository -y ppa:zonca/healpix 
-sudo apt-get update 
-sudo apt-get install -y healpix-cxx libhealpix-cxx-dev libchealpix0 libchealpix-dev
-
+wget https://sourceforge.net/projects/healpix/files/Healpix_3.11/autotools_packages/chealpix-3.11.4.tar.gz & tar xzf chealpix-3.11.4.tar.gz && cd chealpix-3.11.4 && ./configure && make && sudo make install && cd ..
 # Install healpy and nose
 
 pip install nose healpy
