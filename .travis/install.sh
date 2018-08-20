@@ -10,6 +10,8 @@ pip install nose healpy
 #### Install libsharp ####
 git clone https://github.com/Libsharp/libsharp.git 
 cd libsharp
+export CFLAGS="$CFLAGS -fPIC"
+export CXXFLAGS="$CXXFLAGS -fPIC"
 autoconf
 ./configure --enable-shared
 make
