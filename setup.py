@@ -4,13 +4,13 @@ import os
 import sys
 from distutils import log, ccompiler
 from distutils.cmd import Command
-from distutils.core import setup
+from setuptools import setup
 from distutils.errors import CompileError, LinkError
 from distutils.extension import Extension
 from distutils.sysconfig import customize_compiler, get_config_var, get_config_vars
 from distutils.util import get_platform
-from distutils.command.install import install as DistutilsInstall
-from distutils.command.build_clib import build_clib as BuildCLib
+from setuptools.command.install import install as DistutilsInstall
+from setuptools.command.build_clib import build_clib as BuildCLib
 from distutils.dir_util import mkpath
 import platform
 import site
