@@ -65,7 +65,7 @@ CTEST(nmt,mask_flat) {
 
 CTEST(nmt,mask) {
   int ii;
-  long nside=256;
+  long nside=128;
   long npix=he_nside2npix(nside);
   double aposize=2.;
   double th0=M_PI/4; //45-degree cap
