@@ -38,3 +38,4 @@ cd NaMaster
 ./configure --prefix=$TRAVIS_BUILD_DIR
 make
 sudo make install
+make check

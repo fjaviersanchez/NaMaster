@@ -40,14 +40,9 @@ matrix:
 before_install:
 - "chmod 777 ./.travis/install.sh"
 
-install:
+script:
 - "./.travis/install.sh"
 - export LDFLAGS="-L$TRAVIS_BUILD_DIR/lib -L/usr/local/lib"
 - python setup.py install
-
-script:
-
-- ./configure --prefix=$TRAVIS_BUILD_DIR
-- make check
 - python -m unittest -v
 
