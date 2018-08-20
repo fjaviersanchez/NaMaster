@@ -4,7 +4,7 @@
 
 sudo add-apt-repository ppa:zonca/healpix 
 sudo apt-get update 
-sudo apt-get install healpix-cxx libhealpix-cxx-dev libchealpix0 libchealpix-dev
+sudo apt-get install healpix-cxx libhealpix-cxx-dev libchealpix0 libchealpix-dev --force-yes
 
 # Install healpy and nose
 
