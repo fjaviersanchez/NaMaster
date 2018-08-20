@@ -46,8 +46,8 @@ install:
 - python setup.py install
 
 script:
-- pwd
-- ls
+
+- ./configure --prefix=$TRAVIS_BUILD_DIR
 - make check
 - python -m unittest -v
 
