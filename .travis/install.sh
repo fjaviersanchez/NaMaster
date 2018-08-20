@@ -8,8 +8,8 @@ export CFLAGS="-fopenmp"
 
 #### Install NaMaster C ####
 
-./configure --prefix=$TRAVIS_BUILD_DIR
-make clean
-make
-sudo make install
-make check
+#./configure --prefix=$TRAVIS_BUILD_DIR
+#make clean
+#make
+#sudo make install
+#make check
