@@ -17,7 +17,7 @@ make install
 export PATH=`pwd`/auto/bin:$PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/auto/lib:/usr/local/lib
 export LDFLAGS="-L`pwd`/auto/lib -L/usr/local/lib"
-export CPPFLAGS="-I`pwd`/auto/include -I/usr/local/include"
+export CPPFLAGS="-I`pwd`/auto/include -I/usr/local/include -fopenmp"
 
 #### Install GSL2.0+ ####
 wget http://mirror.rise.ph/gnu/gsl/gsl-2.4.tar.gz && tar xzf gsl-2.4.tar.gz && cd gsl-2.4 &&  ./configure --enable-shared && make && sudo make install && cd ..
