@@ -46,6 +46,8 @@ install:
 - python setup.py install
 
 script:
-
+- pwd
+- ls
 - make check
 - python -m unittest -v
+
