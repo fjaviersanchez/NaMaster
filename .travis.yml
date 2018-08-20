@@ -6,6 +6,7 @@ cache:
     - "$HOME/libsharp"
     - "$HOME/NaMaster"
     - "$HOME/gsl-2.4"
+    - "$HOME/chealpix-3.11.4"
     pip: true
 
 addons:
