@@ -32,10 +32,7 @@ wget http://mirror.rise.ph/gnu/gsl/gsl-2.4.tar.gz && tar xzf gsl-2.4.tar.gz && c
 
 #### Install NaMaster C ####
 
-cd $HOME
-#git clone https://github.com/LSSTDESC/NaMaster.git
-#cd NaMaster
-ls
+cd $HOME/NaMaster
 ./configure --prefix=$TRAVIS_BUILD_DIR
 make
 sudo make install
