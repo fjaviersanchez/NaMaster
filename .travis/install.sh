@@ -26,6 +26,10 @@ export CPPFLAGS="-I$TRAVIS_BUILD_DIR/include -I/usr/local/include"
 #### Install GSL2.0+ ####
 wget http://mirror.rise.ph/gnu/gsl/gsl-2.4.tar.gz && tar xzf gsl-2.4.tar.gz && cd gsl-2.4 &&  ./configure && make && sudo make install && cd ..
 
+#### Install FFTW3 ####
+
+
+
 #### Install NaMaster C ####
 cd $HOME
 git clone https://github.com/LSSTDESC/NaMaster.git

@@ -11,6 +11,8 @@ cache:
 addons:
     apt:
         packages:
+            - libfftw3-bin
+            - libfftw3-dev
             - libfftw3-3
             - autotools-dev
             - autoconf
