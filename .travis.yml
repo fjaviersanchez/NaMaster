@@ -44,5 +44,7 @@ install:
 - "./.travis/install.sh"
 
 script:
-- "export LDFLAGS=-L$TRAVIS_BUILD_DIR/lib -L/usr/local/lib"
+- export LDFLAGS="-L$TRAVIS_BUILD_DIR/lib -L/usr/local/lib"
 - python setup.py install
+- make check
+- python -m unittest -v
