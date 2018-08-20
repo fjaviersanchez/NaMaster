@@ -2,7 +2,7 @@
 
 # Install chealpix
 
-wget https://sourceforge.net/projects/healpix/files/Healpix_3.11/autotools_packages/chealpix-3.11.4.tar.gz && tar xzf chealpix-3.11.4.tar.gz && cd chealpix-3.11.4 && ./configure && make && sudo make install && cd ..
+wget https://sourceforge.net/projects/healpix/files/Healpix_3.11/autotools_packages/chealpix-3.11.4.tar.gz && tar xzf chealpix-3.11.4.tar.gz && cd chealpix-3.11.4 && ./configure --enable-shared && make && sudo make install && cd ..
 # Install healpy and nose
 
 pip install nose healpy
@@ -11,7 +11,7 @@ pip install nose healpy
 git clone https://github.com/Libsharp/libsharp.git 
 cd libsharp
 autoconf
-./configure
+./configure --enable-shared
 make
 make install
 mv auto/lib $TRAVIS_BUILD_DIR/
@@ -24,11 +24,7 @@ export LDFLAGS="-L$TRAVIS_BUILD_DIR/lib -L/usr/local/lib"
 export CPPFLAGS="-I$TRAVIS_BUILD_DIR/include -I/usr/local/include"
 
 #### Install GSL2.0+ ####
-wget http://mirror.rise.ph/gnu/gsl/gsl-2.4.tar.gz && tar xzf gsl-2.4.tar.gz && cd gsl-2.4 &&  ./configure && make && sudo make install && cd ..
-
-#### Install FFTW3 ####
-
-
+wget http://mirror.rise.ph/gnu/gsl/gsl-2.4.tar.gz && tar xzf gsl-2.4.tar.gz && cd gsl-2.4 &&  ./configure --enable-shared && make && sudo make install && cd ..
 
 #### Install NaMaster C ####
 cd $HOME
