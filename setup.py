@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+from __future__ import print_function
 import os
 import sys
 from distutils import log, ccompiler
@@ -23,18 +23,11 @@ except AttributeError:
     numpy_include = numpy.get_numpy_include()
 
 class BuildExternalCLib(BuildCLib):
-    """Subclass of Distutils' standard build_clib subcommand. Adds support for
-    libraries that are installed externally and detected with pkg-config, with
-    an optional fallback to build from a local configure-make-install style
-    distribution."""
+    """Customized build"""
 
     def __init__(self, dist):
         BuildCLib.__init__(self, dist)
         self.build_args = {}
-
-    def check_extensions(self):
-        ret_val = _check_extensions()
-        return ret_val
 
     def build_library(self,library):
         # Use a subdirectory of build_temp as the build directory.
@@ -118,10 +111,6 @@ class PyInstall(DistutilsInstall):
         if self.record is None:
             self.record = 'install-record.txt'
 
-    def check_extensions(self):
-        ret_val = _check_extensions()
-        return ret_val
-
     def build_library(self, library):
         plat_specifier = ".%s-%s" % (get_platform(), sys.version[0:3])
         if self.user:
@@ -160,7 +149,6 @@ class PyInstall(DistutilsInstall):
         lib_path = self.build_library('_nmtlib')
         DistutilsInstall.run(self)
 
-
 def _get_build_env():
     env = dict(os.environ)
     cc, cxx, opt, cflags = get_config_vars('CC', 'CXX', 'OPT', 'CFLAGS')
@@ -187,24 +175,44 @@ else :
     libs=['nmt','fftw3','fftw3_omp','sharp','fftpack','c_utils','chealpix','cfitsio','gsl','gslcblas','m','gomp']
     extra=['-O4', '-fopenmp',]
 
-setup(name="pymaster",
-    description="Library for pseudo-Cl computation",
-    author="David Alonso",
-    version="0.1",
-    packages=['pymaster'],
-    ext_modules=[
-        Extension("_nmtlib",["pymaster/namaster_wrap.c"],
-            libraries=libs,
-            library_dirs=[libdir],
-            runtime_library_dirs=[libdir],
-            include_dirs=[numpy_include, "../src/"],
-            extra_compile_args=extra,
-            )
-    ],
-    cmdclass={
-        'install': PyInstall,
-        'build_clib': BuildExternalCLib,
-        'test': PyTest,
-        'uninstall': PyUninstall
-    }
-    )
+# First try to install the Python library only
+try:
+    _nmtlib = Extension("_nmtlib",
+                    ["pymaster/namaster_wrap.c"],
+                    libraries = libs,
+                    include_dirs = [numpy_include, "../src/"],
+                    extra_compile_args=extra,
+                    )
+
+    setup(name = "pymaster",
+          description = "Library for pseudo-Cl computation",
+          author = "David Alonso",
+          version = "0.1",
+          packages = ['pymaster'],
+          ext_modules = [_nmtlib],
+          )
+
+# If this fails, try to install the C library and the Python library
+except Exception as e: 
+    print(e)
+    setup(name="pymaster",
+        description="Library for pseudo-Cl computation",
+        author="David Alonso",
+        version="0.1",
+        packages=['pymaster'],
+        ext_modules=[
+            Extension("_nmtlib",["pymaster/namaster_wrap.c"],
+                libraries=libs,
+                library_dirs=[libdir],
+                runtime_library_dirs=[libdir],
+                include_dirs=[numpy_include, "../src/"],
+                extra_compile_args=extra,
+                )
+        ],
+        cmdclass={
+            'install': PyInstall,
+            'build_clib': BuildExternalCLib,
+            'test': PyTest,
+            'uninstall': PyUninstall
+        }
+        )
