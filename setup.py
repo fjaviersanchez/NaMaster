@@ -13,8 +13,11 @@ from setuptools.command.install import install as DistutilsInstall
 from setuptools.command.build_clib import build_clib as BuildCLib
 from distutils.dir_util import mkpath
 import platform
+import shutil
 import site
 from subprocess import check_call, call
+import tempfile
+from textwrap import dedent
 # Implicit requirement - numpy must already be installed
 import numpy
 try:
@@ -157,6 +160,49 @@ def _get_build_env():
     env['CXXFLAGS'] = cflags
     return env
 
+def _check_nmt():
+    """check if the C module can be built by trying to compile a small
+    program against nmt"""
+
+    libraries = ['nmt']
+
+    # write a temporary .c file to compile
+    c_code = dedent("""
+    #include <stdio.h>
+    #define CTEST_MAIN
+    #include "ctest.h"
+    int main(int argc, const char *argv[])
+    {
+      int result = ctest_main(argc, argv);
+      return result;
+    }
+    """)
+    tmp_dir = tempfile.mkdtemp(prefix='tmp_ccl_')
+    bin_file_name = os.path.join(tmp_dir, 'test_ccl')
+    file_name = bin_file_name + '.c'
+    with open(file_name, 'w') as fp:
+        fp.write(c_code)
+    # and try to compile it
+    compiler = ccompiler.new_compiler()
+    assert isinstance(compiler, ccompiler.CCompiler)
+    customize_compiler(compiler)
+
+    try:
+        compiler.link_executable(
+            compiler.compile([file_name]),
+            bin_file_name,
+            libraries=libraries,
+        )
+        ret_val = True
+    except CompileError:
+        print('libccl compile error')
+        ret_val = False
+    except LinkError:
+        print('libccl link error')
+        ret_val = False
+    shutil.rmtree(tmp_dir)
+    return ret_val
+
 # CCL setup script
 
 if "--user" in sys.argv:
@@ -175,15 +221,15 @@ else :
     libs=['nmt','fftw3','fftw3_omp','sharp','fftpack','c_utils','chealpix','cfitsio','gsl','gslcblas','m','gomp']
     extra=['-O4', '-fopenmp',]
 
-# First try to install the Python library only
-try:
+# We check if we can compile a script against the C nmt library
+if _check_nmt():
+    # If the C library is installed, then we just install the Python library 
     _nmtlib = Extension("_nmtlib",
                     ["pymaster/namaster_wrap.c"],
                     libraries = libs,
                     include_dirs = [numpy_include, "../src/"],
                     extra_compile_args=extra,
                     )
-
     setup(name = "pymaster",
           description = "Library for pseudo-Cl computation",
           author = "David Alonso",
@@ -193,7 +239,7 @@ try:
           )
 
 # If this fails, try to install the C library and the Python library
-except Exception as e: 
+else: 
     print(e)
     setup(name="pymaster",
         description="Library for pseudo-Cl computation",
