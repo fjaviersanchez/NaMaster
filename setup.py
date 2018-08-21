@@ -239,8 +239,7 @@ if _check_nmt():
           )
 
 # If this fails, try to install the C library and the Python library
-else: 
-    print(e)
+else:  
     setup(name="pymaster",
         description="Library for pseudo-Cl computation",
         author="David Alonso",
