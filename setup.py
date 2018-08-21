@@ -195,6 +195,8 @@ setup(name="pymaster",
     ext_modules=[
         Extension("_nmtlib",["pymaster/namaster_wrap.c"],
             libraries=libs,
+            library_dirs=[libdir],
+            runtime_library_dirs=[libdir],
             include_dirs=[numpy_include, "../src/"],
             extra_compile_args=extra,
             )
